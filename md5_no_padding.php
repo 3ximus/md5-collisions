@@ -5,7 +5,6 @@ function rotl ($x, $c) {
     return ($x << $c) | ($x >> (32 - $c));
 }
 
-//Process the message in successive 512-bit chunks:
 function md5_hash($message) {
 
     //Initialize variables:
@@ -22,22 +21,24 @@ function md5_hash($message) {
         $K[$i] = floor(abs(sin($i + 1)) * (pow(2, 32))) & 0xffffffff;
     }
 
-    // break chunk into sixteen 32-bit words M[j], 0 ≤ j ≤ 15
+    // process the message in 512-bit chunks:
     $chunks = str_split($message, 64);
     foreach ($chunks as $chunk) {
         list($aa, $bb, $cc, $dd) = [$a, $b, $c, $d];
+        // break chunk into sixteen 32-bit words M[j], 0 ≤ j ≤ 15
         $words = str_split($chunk, 4);
         foreach ($words as $i => $chrs) {
             $chrs = str_split($chrs);
             $word = '';
-            //little endian
+            // little endian
             $chrs = array_reverse($chrs);
             foreach ($chrs as $chr) {
                 $word .= sprintf('%08b', ord($chr));
             }
             $words[$i] = bindec($word);
         }
-        //Main loop:
+
+        // main loop
         for ($i = 0; $i < 64; $i++) {
             $step = floor($i /16);
             switch ($step) {

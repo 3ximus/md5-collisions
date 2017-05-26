@@ -1,1 +1,6 @@
 .tags
+bad_script.py
+good_script.py
+md5_data*
+fastcool/*.o
+fastcool/fastcool

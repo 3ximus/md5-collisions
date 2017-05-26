@@ -1,0 +1,5 @@
+' ) {
+echo 'GOOD', PHP_EOL;
+} else {
+echo 'BAD', PHP_EOL;
+}
